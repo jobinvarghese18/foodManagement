@@ -1,47 +1,79 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import './App.css';
 import { BrowserRouter,Route,Link } from 'react-router-dom'
+import {startLogout} from './actions/userAction'
 import { Navbar,Button,Form,FormControl,NavItem, NavDropdown, MenuItem, Nav } from 'react-bootstrap';
 import Home from './components/home'
 import Login from './components/login'
 import Register from './components/register'
 
 class  App extends React.Component {
+  handleLogout =()=>{
+      this.props.dispatch(startLogout())
+  }
  render(){
+   console.log(this.props.user)
    return(
     <BrowserRouter>
-     <div className='App'>
+    {
+         Object.keys(this.props.user).length !==0?
+
+         <div className='App'>
+        
+         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+         <Navbar.Brand href="/">Home</Navbar.Brand>
+         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+         <Nav>
+         <Link className='nav-link mr-4' to='/user/register'>PGs</Link>
+         <Link className='nav-link mr-4' to='/user/register'>PGs</Link>
+         <Link className='nav-link mr-4' to='/user/register'>PGs</Link>
+         <Link className='nav-link mr-4' to='/user/register'>PGs</Link>
+         </Nav>
+         <Navbar.Collapse id="responsive-navbar-nav">
+           <Nav className="mr-auto">
+           </Nav>
+           <Nav>
+             {/* <Link className='nav-link' to='/user/register'>Sign Up</Link> */}
+             <Link className="nav-link" onClick={this.handleLogout} >Log out<span className="sr-only">(current)</span></Link>
+           </Nav>
+         </Navbar.Collapse>
+       </Navbar>
+       </div>
+
+    
+    : <div className='App'>
         
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/">Home</Navbar.Brand>
+            <Navbar.Brand href="/">Logo</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
-                {/* <Nav.Link href="#features">Features</Nav.Link>
-                <Nav.Link href="#pricing">Pricing</Nav.Link> */}
-                {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown> */}
               </Nav>
               <Nav>
-                <Nav.Link href='/user/register'>Register</Nav.Link>
-                <Link className="nav-link" to="/user/login">Login <span className="sr-only">(current)</span></Link>
+                <Link className='nav-link' to='/user/register'>Sign Up</Link>
+                <Link className="nav-link" to="/user/login">Sign In<span className="sr-only">(current)</span></Link>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-          </div>
+          </div>}
           
           <div className='container'>
+            <Route path='/home' component ={Home} />
             <Route path='/user/register' component={Register}/>
             <Route path='/user/login' component={Login}/>
           </div>
+          
+            
+          
           </BrowserRouter>
     
    )
  }
 }
-export default App
+const mapStateToProps = (state)=>{
+  return {
+    user:state.user
+  }
+}
+export default connect(mapStateToProps)(App)

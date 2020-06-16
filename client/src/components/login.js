@@ -21,7 +21,10 @@ class Login extends React.Component{
                 validationSchema = {schema}
                 onSubmit = {(values)=>{
                     console.log(values)
-                    this.props.dispatch(startLoginUser(values))
+                    const redirect  = ()=>{
+                        return this.props.history.push('/home')
+                    }
+                    this.props.dispatch(startLoginUser(values,redirect))
                 }} >
                     <Form>
                     <div className='row'>
@@ -45,9 +48,8 @@ class Login extends React.Component{
                         </div>
                         <ErrorMessage
                         component='div'
-                        name='password'
-                        className='c-validation'/>
-                        <button type='submit' className='btn btn-warning'>Submit</button>
+                        name='password'/>
+                        <button type='submit' className='btn btn-warning'>SignIn</button>
                         </div>
                     </div>
                     </Form>

@@ -23,7 +23,10 @@ class Register extends React.Component{
             }}
             validationSchema = {schema}
             onSubmit = { (values) =>{
-                this.props.dispatch(startRegister(values))
+                const redirect = ()=>{
+                   return this.props.history.push('/user/login')
+                }
+                this.props.dispatch(startRegister(values,redirect))
             }}
             >
                 

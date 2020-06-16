@@ -1,19 +1,25 @@
 import axios from '../config/axios'
 
-//------------- User Register ----------
-export const startLoginUser = (formData)=>{
+//------------- User Login ----------
+export const loginUser = (data)=>{
+    return {type:'POST_USER',payload:data}
+}
+export const startLoginUser = (formData,redirect)=>{
     return (dispatch)=>{
         axios.post('/user/login',formData)
         .then((response)=>{
-            const auth = response.data
+            console.log(response.data)
+            const auth = response.data.token
             localStorage.setItem('auth',auth)
             axios.get('/user/account',{
                 headers:{
-                    authorization:auth
+                    "Authorization":auth
                 }
             })
             .then((response)=>{
                 console.log(response.data)
+                dispatch(loginUser(response.data))
+                redirect()
             })
             .catch((err)=>{
                 console.log(err)
@@ -26,16 +32,32 @@ export const startLoginUser = (formData)=>{
 }
 
 //------------- User Register -----------
-export const startRegister = (formData)=>{
+export const startRegister = (formData,redirect)=>{
     return (dispatch)=>{
         axios.post('/user/register',formData)
         .then((response)=>{
-            if(response.data.hasOwnProperty('errmsg')){
-                alert(response.data.errmsg)
+            console.log(response.data)
+            if(response.data.hasOwnProperty('errors')){
+                alert(response.data.message)
+            }
+            else{
+                redirect()
             }
         })
         .catch((err)=>{
             console.log(err)
         })
+    }
+}
+
+//------------Logout user -------
+export const resetUser = (data)=>{
+    return {type:'RESET_USER',payload:data}
+}
+export const startLogout = ()=>{
+    return (dispatch)=>{
+        localStorage.removeItem('auth')
+        dispatch(resetUser({}))
+        window.location.href='/users/login'
     }
 }
