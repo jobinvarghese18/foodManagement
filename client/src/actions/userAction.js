@@ -58,6 +58,6 @@ export const startLogout = ()=>{
     return (dispatch)=>{
         localStorage.removeItem('auth')
         dispatch(resetUser({}))
-        window.location.href='/users/login'
+        window.location.href='/user/login'
     }
 }

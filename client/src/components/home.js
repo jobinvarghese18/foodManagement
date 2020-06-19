@@ -5,7 +5,7 @@ class Home extends React.Component{
         return(
             <div>
                 <div className='row'>
-                    <div className='col-md-4 offset-4   mt-3'><h1>Home</h1></div>
+                    <div className='col-md-4 offset-4   mt-3'></div>
                 </div>
                 
             </div>

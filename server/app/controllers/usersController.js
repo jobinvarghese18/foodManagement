@@ -6,7 +6,6 @@ const usersController = {}
 usersController.register = (req,res)=>{
   const body = req.body
   const user = new User(body)
-  console.log(user)
   bcryptjs.genSalt()
   .then((salt)=>{
       bcryptjs.hash(user.password,salt)

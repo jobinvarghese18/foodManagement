@@ -6,6 +6,7 @@ import {startLogout} from './actions/userAction'
 import { Navbar,Button,Form,FormControl,NavItem, NavDropdown, MenuItem, Nav } from 'react-bootstrap';
 import Home from './components/home'
 import Login from './components/login'
+import logo from './logo/waste2.png'
 import Register from './components/register'
 
 class  App extends React.Component {
@@ -22,13 +23,14 @@ class  App extends React.Component {
          <div className='App'>
         
          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+         <Navbar.Brand href="/">  <img src={logo} width="50" height="50"/></Navbar.Brand>
          <Navbar.Brand href="/">Home</Navbar.Brand>
          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
          <Nav>
-         <Link className='nav-link mr-4' to='/user/register'>PGs</Link>
-         <Link className='nav-link mr-4' to='/user/register'>PGs</Link>
-         <Link className='nav-link mr-4' to='/user/register'>PGs</Link>
-         <Link className='nav-link mr-4' to='/user/register'>PGs</Link>
+         <Link className='nav-link mr-4' to=''>PGs</Link>
+         <Link className='nav-link mr-4' to=''>Mess</Link>
+         <Link className='nav-link mr-4' to=''>Notification</Link>
+         <Link className='nav-link mr-4' to=''>Feedback</Link>
          </Nav>
          <Navbar.Collapse id="responsive-navbar-nav">
            <Nav className="mr-auto">
@@ -45,7 +47,7 @@ class  App extends React.Component {
     : <div className='App'>
         
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/">Logo</Navbar.Brand>
+            <Navbar.Brand href="/">  <img src={logo} width="50" height="50"/></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
