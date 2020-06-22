@@ -1,10 +1,10 @@
 const bcryptjs  = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Pg = require('../models/pg')
-const pgContoller = {}
+const pgController = {}
 
 
-pgContoller.register = (req,res)=>{
+pgController.register = (req,res)=>{
    const body = req.body
    const pg = new Pg(body)
    bcryptjs.genSalt()
@@ -26,7 +26,7 @@ pgContoller.register = (req,res)=>{
    })
 }
 
-pgContoller.login = (req,res)=>{
+pgController.login = (req,res)=>{
     const body = req.body
     Pg.findOne({email:body.email})
     .then((pg)=>{
@@ -59,4 +59,8 @@ pgContoller.login = (req,res)=>{
     })
 }
 
-module.exports = pgContoller
+pgController.account = (req,res)=>{
+    res.json(req.pg)
+}
+
+module.exports = pgController
