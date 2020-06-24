@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import * as Yup from 'yup'
+import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import { startLoginUser } from '../actions/userAction'
-import {Formik,Form,Field,ErrorMessage} from 'formik'
+import {Formik,Field,ErrorMessage,Form} from 'formik'
+import {startLoginPg} from '../actions/pgActions'
 
 const schema = Yup.object().shape({
     email:Yup.string().required().email('invalid email'),
@@ -11,7 +11,8 @@ const schema = Yup.object().shape({
     .max(10, 'length must be less than 10')
 
 })
-class Login extends React.Component{
+class PgRegister extends React.Component{
+
     render(){
         return(
             <div>
@@ -25,12 +26,12 @@ class Login extends React.Component{
                     const redirect  = ()=>{
                         return this.props.history.push('/home')
                     }
-                    this.props.dispatch(startLoginUser(values,redirect))
+                    this.props.dispatch(startLoginPg(values,redirect))
                 }} >
                     <Form>
                     <div className='row'>
                             <div className='col-md-4 offset-4 mt-5'>
-                                <h2>Login</h2>
+                                <h2>PG Login</h2>
                                 </div>
                             </div>
                         <div className='row'>
@@ -51,8 +52,8 @@ class Login extends React.Component{
                         component='div'
                         name='password'/>
                         <button type='submit' className='btn btn-warning'>SignIn</button>
-                        <div class="alert alert-info" role="alert">
-                            PG ?<Link to="/pg/login" class="alert-link">login here</Link>.
+                        <div class="alert alert-warning" role="alert">
+                            PG ?<Link to="/pg/register" class="alert-link">haven't registered yet? </Link>.
                         </div>
                         </div>
                     </div>
@@ -61,11 +62,10 @@ class Login extends React.Component{
             </div>
         )
     }
-        
 }
-const mapStateToPros = ()=>{
-    return {
+const mapStateToProps = ()=>{
+    return{
 
     }
 }
-export default connect(mapStateToPros) (Login)
+export default connect(mapStateToProps) (PgRegister)

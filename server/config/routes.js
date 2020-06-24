@@ -14,4 +14,5 @@ router.get('/user/account',authenticateUser,usersController.account)
 router.post('/pg/register',pgController.register)
 router.post('/pg/login',pgController.login)
 router.get('/pg/account',authenticatePg,pgController.account)
+router.get('/pg/pgs',authenticatePg,pgController.list)
 module.exports = router

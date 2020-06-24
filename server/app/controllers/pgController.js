@@ -63,4 +63,14 @@ pgController.account = (req,res)=>{
     res.json(req.pg)
 }
 
+pgController.list = (req,res)=>{
+    Pg.find()
+    .then((pgs)=>{
+        res.json(pgs)
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+}
+
 module.exports = pgController

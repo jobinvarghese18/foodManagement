@@ -8,26 +8,73 @@ import Home from './components/home'
 import Login from './components/login'
 import logo from './logo/waste2.png'
 import Register from './components/register'
+import PgRegister from './components/pgRegister'
+import PgLogin from './components/PgLogin'
+import PGsCards from './components/PGsCards'
+import PgCards from './components/PGsCards';
 
 class  App extends React.Component {
   handleLogout =()=>{
       this.props.dispatch(startLogout())
   }
  render(){
-   console.log(this.props.user)
+   console.log('user',this.props.user)
+   console.log('pg',this.props.pg)
    return(
     <BrowserRouter>
+    {/* ---------------Users Nav bar-------------- */}
     {
-         Object.keys(this.props.user).length !==0?
-
+         Object.keys(this.props.user).length !==0 &&
+       
          <div className='App'>
-        
+         
          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
          <Navbar.Brand href="/">  <img src={logo} width="50" height="50"/></Navbar.Brand>
          <Navbar.Brand href="/">Home</Navbar.Brand>
          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
          <Nav>
-         <Link className='nav-link mr-4' to=''>PGs</Link>
+         <Link className='nav-link mr-4' to='/user/pgcards'>PGs</Link>
+         <Link className='nav-link mr-4' to=''>Mess</Link>
+         <Link className='nav-link mr-4' to=''>Notification</Link>
+         <Link className='nav-link mr-4' to=''>Feedback</Link>
+         </Nav>
+         <Navbar.Collapse id="responsive-navbar-nav">
+           <Nav className="mr-auto">
+           </Nav>
+           <Nav>
+             <Link className="nav-link" onClick={this.handleLogout} >Log out<span className="sr-only">(current)</span></Link>
+           </Nav>
+         </Navbar.Collapse>
+       </Navbar>
+       </div>
+         }
+         {
+           Object.keys(this.props.pg).length === 0 && Object.keys(this.props.user).length === 0 && 
+           <div className='App'>
+        
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand href="/">  <img src={logo} width="50" height="50"/></Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+              </Nav>
+              <Nav>
+                <Link className='nav-link' to='/user/login'>Login</Link>
+                <Link className="nav-link" to="/user/register">Join<span className="sr-only">(current)</span></Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+          </div>
+         }
+          {
+            Object.keys(this.props.pg).length !==0 &&
+            <div className='App'>
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+         <Navbar.Brand href="/">  <img src={logo} width="50" height="50"/></Navbar.Brand>
+         <Navbar.Brand href="/">Home</Navbar.Brand>
+         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+         <Nav>
+         <Link className='nav-link mr-4' to=''>Profile</Link>
          <Link className='nav-link mr-4' to=''>Mess</Link>
          <Link className='nav-link mr-4' to=''>Notification</Link>
          <Link className='nav-link mr-4' to=''>Feedback</Link>
@@ -41,29 +88,19 @@ class  App extends React.Component {
            </Nav>
          </Navbar.Collapse>
        </Navbar>
-       </div>
-
-    
-    : <div className='App'>
-        
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/">  <img src={logo} width="50" height="50"/></Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="mr-auto">
-              </Nav>
-              <Nav>
-                <Link className='nav-link' to='/user/register'>Sign Up</Link>
-                <Link className="nav-link" to="/user/login">Sign In<span className="sr-only">(current)</span></Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
-          </div>}
+       </div> 
+            
+          }
           
           <div className='container'>
             <Route path='/home' component ={Home} />
             <Route path='/user/register' component={Register}/>
             <Route path='/user/login' component={Login}/>
+            <Route path='/user/pgcards' component = {PgCards}/>
+
+
+            <Route path='/pg/register' component={PgRegister} />
+            <Route path='/pg/login' component={PgLogin}/>
           </div>
           
             
@@ -75,7 +112,9 @@ class  App extends React.Component {
 }
 const mapStateToProps = (state)=>{
   return {
-    user:state.user
+    user:state.user,
+    pg:state.pg
+
   }
 }
 export default connect(mapStateToProps)(App)
