@@ -1,6 +1,9 @@
 const bcryptjs  = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Pg = require('../models/pg')
+const { findOneAndUpdate } = require('../models/pg')
+var path = require("path");
+var absolutePath = path.resolve("Relative file path")
 const pgController = {}
 
 
@@ -59,14 +62,45 @@ pgController.login = (req,res)=>{
     })
 }
 
+
+//---current PG details
 pgController.account = (req,res)=>{
     res.json(req.pg)
 }
 
+
+///----List all the PGs
 pgController.list = (req,res)=>{
     Pg.find()
     .then((pgs)=>{
         res.json(pgs)
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+}
+
+pgController.update = (req,res)=>{
+    if(req.file){
+        req.body.avatar = req.file.path
+        //path.resolve(req.file.path)
+    }
+    const id = req.params.id
+    const body = req.body
+    Pg.findOneAndUpdate({_id:id},body,{new:true})
+    .then((pg)=>{
+           res.json(pg)
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+}
+
+pgController.destroy = (req,res)=>{
+    const id = req.params.id
+    Pg.findByIdAndRemove(id)
+    .then((pg)=>{
+        res.json(pg)
     })
     .catch((err)=>{
         res.json(err)

@@ -4,6 +4,10 @@ import * as Yup from 'yup'
 import {Link} from 'react-router-dom'
 import { startLoginUser } from '../actions/userAction'
 import {Formik,Form,Field,ErrorMessage} from 'formik'
+import { makeStyles,ThemeProvider } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import { green, purple } from '@material-ui/core/colors';
+import TextField from '@material-ui/core/TextField';
 
 const schema = Yup.object().shape({
     email:Yup.string().required().email('invalid email'),
@@ -11,8 +15,18 @@ const schema = Yup.object().shape({
     .max(10, 'length must be less than 10')
 
 })
-class Login extends React.Component{
-    render(){
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }));
+  
+function Login(props){
+    const classes = useStyles();
         return(
             <div>
                 <Formik initialValues = {{
@@ -23,9 +37,9 @@ class Login extends React.Component{
                 onSubmit = {(values)=>{
                     console.log(values)
                     const redirect  = ()=>{
-                        return this.props.history.push('/home')
+                        return props.history.push('/home')
                     }
-                    this.props.dispatch(startLoginUser(values,redirect))
+                    props.dispatch(startLoginUser(values,redirect))
                 }} >
                     <Form>
                     <div className='row'>
@@ -37,7 +51,7 @@ class Login extends React.Component{
                             <div className='col-md-4 offset-4'>
                         <div className='form-group'>
                         <label htmlFor='email'>E-mail</label>
-                        <Field type='text' name='email' className='form-control'/>
+                        <Field id="filled-password-input" type='text' name='email' className='form-control' />
                         </div>
                         <ErrorMessage
                         component='div'
@@ -45,12 +59,12 @@ class Login extends React.Component{
                         />
                         <div className='form-group'>
                         <label htmlFor='password'>password</label>
-                        <Field type='text' name='password' className='form-control'/>
+                        <Field type='text' name='password'  className='form-control'/>
                         </div>
                         <ErrorMessage
                         component='div'
                         name='password'/>
-                        <button type='submit' className='btn btn-warning'>SignIn</button>
+                        <Button variant="contained" type='submit' color="secondary">SignIn</Button>
                         <div class="alert alert-info" role="alert">
                             PG ?<Link to="/pg/login" class="alert-link">login here</Link>.
                         </div>
@@ -60,7 +74,6 @@ class Login extends React.Component{
                 </Formik>
             </div>
         )
-    }
         
 }
 const mapStateToPros = ()=>{

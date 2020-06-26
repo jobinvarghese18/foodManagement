@@ -4,7 +4,8 @@ const configureDB = ()=>{
     mongoose.connect('mongodb://localhost:27017/fd-mgt-db',{
         useNewUrlParser: true,
         useUnifiedTopology:true,
-        useCreateIndex:true
+        useCreateIndex:true,
+        useFindAndModify: false
     })
     .then(()=>{
         console.log('connected to db')

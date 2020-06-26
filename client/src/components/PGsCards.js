@@ -1,17 +1,35 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react';
 import {connect} from 'react-redux'
 import {startGetPgs} from '../actions/pgActions'
 import image from '../logo/waste.jpg'
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-class PgCards extends React.Component{
-    constructor(){
-        super()
-    }
-    componentDidMount(){
-        this.props.dispatch(startGetPgs())
-    }
-    render(){
-        console.log(this.props.pgs)
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+})
+
+function PgCards(props) {
+  const [count, setCount] = React.useState(0);
+  useEffect(() => {
+    props.dispatch(startGetPgs())
+    setCount(100)
+  },[]);
+    // componentDidMount(){
+    //     this.props.dispatch(startGetPgs())
+    // }
+        const classes = useStyles();
         return(
             <div>
                 <h2>PGs</h2>
@@ -58,18 +76,51 @@ class PgCards extends React.Component{
             <div className='row'>
             {
                 
-                this.props.pgs.map((pg)=>{
+                props.pgs.map((pg)=>{
                     return(
                         
-                        <div className='col-lg-3 mt-4'>
-                        <div class="card" styles="width: 18rem;">
-                        <img src="..." className="card-img-top" alt="..."/>
+                        <div className='col-md-3 mt-4'>
+                           <Card className={classes.root}>
+                           <CardActionArea>
+                          {/* <CardMedia
+                            className={classes.media}
+                            image={`"/${pg.avatar}"`}
+          
+                            title="Contemplative Reptile"
+                          /> */}
+                          <img src={`/${pg.avatar}`} className="card-img-top" alt="..."/>
+                          <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                          {pg.pgName}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary" component="p">
+                                  contact:<br/>
+                                  Address :{pg.address}<br/>
+                                  Phone :{pg.phone}
+                          </Typography>
+                          </CardContent>
+                          </CardActionArea>
+                          <CardActions>
+                          <Button size="small" color="primary">
+                             Share
+                          </Button>
+                          <Button size="small" color="primary">
+                             Learn More
+                          </Button>
+                          </CardActions>
+                          </Card>
+                        {/* <div class="card" styles="width: 18rem;">
+                        <img src={`/${pg.avatar}`} className="card-img-top" alt="..."/>
                         <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <h5 class="card-title">Name :{pg.pgName}</h5>
+                          <p class="card-text">address :{pg.address}<br/>
+                          contact : <br/>
+                          {pg.email}<br/>
+                          {pg.phone}<br/>
+                          </p>
                           <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
-                      </div>
+                      </div> */}
                       </div>
                     
                     )
@@ -82,7 +133,7 @@ class PgCards extends React.Component{
 </div>
         
         )
-    }
+    
 }
 const mapStateToProps = (state)=>{
     return {
