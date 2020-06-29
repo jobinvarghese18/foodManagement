@@ -4,6 +4,7 @@ const userReducer = (state = initialState,action)=>{
     switch(action.type){
         case 'POST_USER':{
             return state.concat(action.payload)
+            // return ...action.payload
         }
         case 'RESET_USER':{
             return state.concat(action.payload)

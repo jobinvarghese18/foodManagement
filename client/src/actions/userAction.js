@@ -9,7 +9,8 @@ export const startLoginUser = (formData,redirect)=>{
         axios.post('/user/login',formData)
         .then((response)=>{
             console.log(response.data)
-            const auth = response.data.token
+            if(response.data.hasOwnProperty('token')){
+                const auth = response.data.token
             localStorage.setItem('auth',auth)
             axios.get('/user/account',{
                 headers:{
@@ -24,6 +25,8 @@ export const startLoginUser = (formData,redirect)=>{
             .catch((err)=>{
                 console.log(err)
             })
+            }
+            
         })
         .catch((err)=>{
             console.log(err)

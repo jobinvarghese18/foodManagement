@@ -12,6 +12,7 @@ import PgRegister from './components/pgRegister'
 import PgLogin from './components/PgLogin'
 import PGsCards from './components/PGsCards'
 import PgCards from './components/PGsCards';
+import Login1 from './components/login1'
 
 class  App extends React.Component {
   handleLogout =()=>{
@@ -95,8 +96,9 @@ class  App extends React.Component {
           <div className='container'>
             <Route path='/home' component ={Home} />
             <Route path='/user/register' component={Register}/>
-            <Route path='/user/login' component={Login}/>
+            <Route path='/user/login' component={Login1}/>
             <Route path='/user/pgcards' component = {PgCards}/>
+            <Route path='/user/login1' component = {Login1} />
 
 
             <Route path='/pg/register' component={PgRegister} />
