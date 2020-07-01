@@ -13,16 +13,9 @@ const residentMessSchema = new Schema({
     userId:{
         type:String
     },
-    breakfast:{
+    timing:{
         type:String,
-        required:true
-    },
-    lunch:{
-        type:String,
-        required:true
-    },
-    dinner:{
-        type:String,
+        enum:['breakfast','lunch','dinner'],
         required:true
     },
     vegNonVeg:{
@@ -30,6 +23,11 @@ const residentMessSchema = new Schema({
         required:true
     }
 })
+residentMessSchema.pre('save', function(next,req) {
+  let self = this
+  console.log(req.body)
+  next();
+});
 
 const ResidentMess = mongoose.model('ResidentMess',residentMessSchema)
 module.exports = ResidentMess

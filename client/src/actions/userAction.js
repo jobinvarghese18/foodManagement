@@ -64,3 +64,24 @@ export const startLogout = ()=>{
         window.location.href='/user/login'
     }
 }
+
+//-------Posting Mess details----
+export const postMessDetails = (data)=>{
+    return{type:'SET_RES_MESS',payload:data}
+}
+export const startPostMessDetails = (data)=>{
+    return(dispatch)=>{
+        axios.post('/user/residentMess',data,{
+            headers:{
+                'Authorization':localStorage.getItem('auth')
+            }
+        })
+        .then((response)=>{
+            console.log(response.data)
+            dispatch(postMessDetails(response.data))
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+}

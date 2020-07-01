@@ -13,6 +13,9 @@ import PgLogin from './components/PgLogin'
 import PGsCards from './components/PGsCards'
 import PgCards from './components/PGsCards';
 import Login1 from './components/login1'
+import PgProfile from './components/PGProfile'
+import userMessDetails from './components/UserMessDetails'
+import PGMessDetails from './components/PGMessDetails'
 
 class  App extends React.Component {
   handleLogout =()=>{
@@ -35,7 +38,7 @@ class  App extends React.Component {
          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
          <Nav>
          <Link className='nav-link mr-4' to='/user/pgcards'>PGs</Link>
-         <Link className='nav-link mr-4' to=''>Mess</Link>
+         <Link className='nav-link mr-4' to='/user/messdetails'>Mess</Link>
          <Link className='nav-link mr-4' to=''>Notification</Link>
          <Link className='nav-link mr-4' to=''>Feedback</Link>
          </Nav>
@@ -75,7 +78,7 @@ class  App extends React.Component {
          <Navbar.Brand href="/">Home</Navbar.Brand>
          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
          <Nav>
-         <Link className='nav-link mr-4' to=''>Profile</Link>
+         <Link className='nav-link mr-4' to='/pg/profile'>Profile</Link>
          <Link className='nav-link mr-4' to=''>Mess</Link>
          <Link className='nav-link mr-4' to=''>Notification</Link>
          <Link className='nav-link mr-4' to=''>Feedback</Link>
@@ -99,10 +102,13 @@ class  App extends React.Component {
             <Route path='/user/login' component={Login1}/>
             <Route path='/user/pgcards' component = {PgCards}/>
             <Route path='/user/login1' component = {Login1} />
+            <Route path='/user/messdetails' component={userMessDetails} />
 
 
             <Route path='/pg/register' component={PgRegister} />
             <Route path='/pg/login' component={PgLogin}/>
+            <Route path='/pg/profile' component={PgProfile}/>
+            <Route path='/pg/messdetails' component={PGMessDetails} />
           </div>
           
             

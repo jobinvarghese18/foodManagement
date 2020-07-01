@@ -3,11 +3,13 @@ import thunk from 'redux-thunk'
 import pgReducer from '../reducers/pgReducer'
 import userReducer from '../reducers/userReducer'
 import pgsReducer from '../reducers/PgsReducer'
+import residentMess from '../reducers/residentMessReducer'
 const configureStore = ()=>{
     const store = createStore(combineReducers({
        user:userReducer,
        pg:pgReducer,
-       pgs:pgsReducer
+       pgs:pgsReducer,
+       residentMess:residentMess
     }),applyMiddleware(thunk))
     return store
 }
