@@ -85,3 +85,24 @@ export const startPostMessDetails = (data)=>{
         })
     }
 }
+
+//------Getting PG Mess Details -----
+export const getPGMessDetails = (data)=>{
+    return{type:'POST_PG_MESS',payload:data}
+}
+export const startGetPGMessDetails = ()=>{
+    return(dispatch)=>{
+        axios.get('/pg/messdetails',{
+            headers:{
+                "Authorization":localStorage.getItem('auth')
+            }
+        })
+        .then((response)=>{
+            console.log(response.data)
+            dispatch(getPGMessDetails(response.data))
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+}

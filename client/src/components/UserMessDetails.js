@@ -1,12 +1,17 @@
-import React from 'react'
-import {useFormik} from 'formik'
-import {connect} from 'react-redux'
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import {TextField,Button,Checkbox,FormControlLabel,
-    FormControl,InputLabel,Select,MenuItem} from '@material-ui/core'
-import Grid from '@material-ui/core/Grid';
-import {startPostMessDetails} from '../actions/userAction'
+import React,{useEffect,useState} from 'react'
+import {useFormik}                from 'formik'
+import {connect}                  from 'react-redux'
+import Paper                      from '@material-ui/core/Paper';
+import { makeStyles }             from '@material-ui/core/styles';
+import {TextField,Button,Checkbox,
+       FormControlLabel,
+       FormControl,InputLabel,Select,
+       MenuItem,Card,CardContent,
+       Typography}                from '@material-ui/core'
+import Grid                       from '@material-ui/core/Grid';
+import {startPostMessDetails,
+       startGetPGMessDetails}     from '../actions/userAction'
+import moment                     from 'moment'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
 
 function UserMessDetails (props){
     const classes = useStyles();
+    const [count , setCount] = useState('0')
+    useEffect(()=>{
+      props.dispatch(startGetPGMessDetails())
+      setCount(100)
+    },[])
     const {handleSubmit, handleChange, values, errors} = useFormik({
         initialValues:{
             residentName:'',
@@ -48,7 +58,18 @@ function UserMessDetails (props){
     return(
         
         <div>
+          <Card className={classes.root} className='mt-3' style={style}variant="outlined">
+      <CardContent>
+
             <div className='row'>
+                <div className='col-md-3 offset-3'>
+                  <Typography variant='h6'>
+                   Mess
+                  </Typography>
+                  <Typography variant='subtitle1' color='secondary'>
+                    {moment().format('MMMM Do YYYY, h:mm:ss a')}
+                  </Typography>
+                </div>
                 <div className='col-md-4 offset-8'> 
                 
                 <h3>Be there ?</h3>
@@ -92,6 +113,8 @@ function UserMessDetails (props){
                 </form>
             </div>
         </div>
+        
+      </CardContent></Card>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const messSchema = new SChema({
+const messSchema = new Schema({
     createdAt:{
         type:Date,
         defualt:Date.now
@@ -12,6 +12,7 @@ const messSchema = new SChema({
     },
     vegOrNonVeg:{
         type:String,
+        enum:['veg','non-veg'],
         required:true
     },
     timeOfServing:{
@@ -24,5 +25,5 @@ const messSchema = new SChema({
     }
 })
 
-const Mess = mongoose.model('Mess',messSchema)
-module.exports = Mess
+const PgMess = mongoose.model('PgMess',messSchema)
+module.exports = PgMess

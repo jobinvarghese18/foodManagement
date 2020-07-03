@@ -3,6 +3,7 @@ const residentMessControll = {}
 
 residentMessControll.create = (req,res)=>{
     const body = req.body
+    body.userId = req.user._id
     const residentMess = new ResidentMess(body)
     residentMess.save()
     .then((residentMess)=>{

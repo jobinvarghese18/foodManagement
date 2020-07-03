@@ -79,7 +79,7 @@ class  App extends React.Component {
          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
          <Nav>
          <Link className='nav-link mr-4' to='/pg/profile'>Profile</Link>
-         <Link className='nav-link mr-4' to=''>Mess</Link>
+         <Link className='nav-link mr-4' to='/pg/messdetails'>Mess</Link>
          <Link className='nav-link mr-4' to=''>Notification</Link>
          <Link className='nav-link mr-4' to=''>Feedback</Link>
          </Nav>

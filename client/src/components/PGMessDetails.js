@@ -1,12 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import DateFnsUtils from '@date-io/date-fns'
+import datefns from "date-fns"
+import {Button,TextField,Checkbox,FormControl,FormControlLabel
+} from '@material-ui/core'
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+  } from '@material-ui/pickers';
 
 const useStyles = makeStyles({
+    
   root: {
     minWidth: 275,
   },
@@ -28,24 +37,71 @@ const style = {
 export default function OutlinedCard() {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
   return (
-    <Card className={classes.root} style={style}variant="outlined">
+    <Card className={classes.root} className='mt-3' style={style}variant="outlined">
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
+          Mess Details
         </Typography>
         <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
+          Fill Up !
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
+        <div clssName ='row'>
+            <div className='col-md-4 offset-4'>
+                    <form className={classes.root}>
+                            <TextField id="standard-basic" label="Dish Name" />
+                            <br/>
+                <FormControlLabel
+                className='mt-2'
+                 control={
+                <Checkbox
+                // onChange={handleChange}
+                name="vegNonVeg"
+                color="primary"
+          />
+        }
+        label="VEG?"
+      />
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+          margin="normal"
+          id="date-picker-dialog"
+          label="Select Date of serving"
+          format="MM/dd/yyyy"
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+        </MuiPickersUtilsProvider>
+        <TextField
+        id="time"
+        label="Serving"
+        type="time"
+        defaultValue="07:30"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+      />
+                            <br/>
+                            <Button variant="contained" className='mt-2' color="secondary">
+                            Proceed
+                            </Button>
+                    </form>
+                    
+            </div>
+        </div>
+        
       </CardContent>
       <CardActions>
         <Button size="small">Learn More</Button>

@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 import {Link} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button,Typography } from '@material-ui/core';
 import {connect} from 'react-redux'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
@@ -48,23 +48,6 @@ function Login(props){
         }
       });
     const classes = useStyles();
-    // const [email,setEmail] = useState('')
-    // const [password,setPassword] = useState('')
-
-    // const submitHandler = (e)=>{
-    //     e.preventDefault()
-    //     const formData = {
-    //         email:email,
-    //         password:password
-    //     }
-    //     console.log(formData)
-    //     const redirect = ()=>{
-    //       return  props.history.push('/home')
-    //     }
-    //     props.dispatch(startLoginUser(formData,redirect))
-
-    // }
-    // e =>setEmail(e.target.value)
     return(
         <div>
             <div className="row mt-5">
@@ -75,7 +58,9 @@ function Login(props){
             </div>
             <div className='row'>
                 <div className ='col-md-4 offset-4 mt-3'>
-                    <h2>User Login</h2>
+                <Typography variant="h5" className='ml-2' gutterBottom>
+         user's
+      </Typography>
                 </div>
                 <div className='col-md-4 offset-4'>
                    <form className={classes.root} onSubmit={handleSubmit} >

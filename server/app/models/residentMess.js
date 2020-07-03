@@ -24,10 +24,9 @@ const residentMessSchema = new Schema({
     }
 })
 residentMessSchema.pre('save', function(next,req) {
-  let self = this
-  console.log(req.body)
-  next();
-});
+    
+    next()
+  })
 
 const ResidentMess = mongoose.model('ResidentMess',residentMessSchema)
 module.exports = ResidentMess
