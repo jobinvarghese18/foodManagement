@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import {startPostRequest} from '../actions/userAction'
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -24,8 +24,15 @@ function PgCards(props) {
   const [count, setCount] = React.useState(0);
   useEffect(() => {
     props.dispatch(startGetPgs())
-    setCount(100)
+    setCount(100) 
   },[]);
+      function handleClick(pgId){
+          const formData = {
+            pgId
+          }
+          console.log(formData)
+          props.dispatch(startPostRequest(formData))
+        }
     // componentDidMount(){
     //     this.props.dispatch(startGetPgs())
     // }
@@ -82,12 +89,6 @@ function PgCards(props) {
                         <div className='col-md-3 mt-4'>
                            <Card className={classes.root}>
                            <CardActionArea>
-                          {/* <CardMedia
-                            className={classes.media}
-                            image={`"/${pg.avatar}"`}
-          
-                            title="Contemplative Reptile"
-                          /> */}
                           <img src={`/${pg.avatar}`} className="card-img-top" alt="..."/>
                           <CardContent>
                           <Typography gutterBottom variant="h5" component="h2">
@@ -101,12 +102,12 @@ function PgCards(props) {
                           </CardContent>
                           </CardActionArea>
                           <CardActions>
-                          <Button size="small" color="primary">
-                             Share
+                          <Button size="small" color="primary" onClick={()=>{handleClick(pg._id)}}>
+                             Request
                           </Button>
-                          <Button size="small" color="primary">
+                          {/* <Button size="small" color="primary">
                              Learn More
-                          </Button>
+                          </Button> */}
                           </CardActions>
                           </Card>
                         {/* <div class="card" styles="width: 18rem;">

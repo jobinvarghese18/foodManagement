@@ -71,7 +71,7 @@ function PgRegister(props){
                        onChange={handleChange} />
                        {errors.password ? errors.password : null}
                        <Button type='submit' variant="contained" style={style} color="primary" size ='large'>Login</Button>
-                       <Alert severity="info" style={style}>PG ?<Link to="/pg/login" class="alert-link">login here</Link></Alert>
+                       <Alert severity="info" style={style}>User ?<Link to="/user/login" class="alert-link">login here</Link></Alert>
                    </form>
                 </div>
             </div>

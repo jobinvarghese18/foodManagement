@@ -5,6 +5,9 @@ const pgReducer = (state = initialState,action)=>{
         case 'POST_PG':{
             return state.concat(action.payload)
         }
+        case 'RESET_PG':{
+            return state.concat(action.payload)
+        }
         default:{
             return [].concat(state)
         }

@@ -7,6 +7,7 @@ const pgController                        = require('../app/controllers/pgContro
 const upload                              = require('../app/middlewares/uploads')
 const residentMessControll                = require('../app/controllers/residentMessController')
 const pgMessControll                      = require('../app/controllers/pgMessControll')
+const userRequestController               = require('../app/controllers/userRequestController')
 
 router.post('/user/register',usersController.register)
 router.post('/user/login',usersController.login)
@@ -25,6 +26,8 @@ router.put('/pg/:id',authenticatePg,upload.single('avatar'),pgController.update)
 router.delete('/pg/:id',authenticatePg,pgController.destroy)
 router.post('/pg/messdetails/',authenticatePg,pgMessControll.create)
 router.get('/pg/messdetails',authenticatePg,pgMessControll.list)
-//-----------Resident Mess ------
+//-----------User Request ------
+router.post('/user/approve',authenticateUser,userRequestController.request)
+router.get('/user/approve',authenticatePg,userRequestController.list)
 
 module.exports = router

@@ -85,3 +85,35 @@ export const startGetPgs = ()=>{
         })
     }
 }
+
+//--------------Get Resuests -----
+export const postRequest  = (data)=>{
+    return{type:'POST_USER_REQ',payload:data}
+}
+export const startGetRequests = ()=>{
+    return(dispatch)=>{
+        axios.get('/user/approve',{
+            headers:{
+                "Authorization":localStorage.getItem('auth')
+            }
+        })
+        .then((response)=>{
+            console.log(response.data)
+            dispatch(postRequest(response.data))
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+}
+//---------------log out---
+export const resetPg = (data)=>{
+    return {type:'RESET_PG',payload:data}
+}
+export const startLogoutPG = ()=>{
+    return (dispatch)=>{
+        localStorage.removeItem('auth')
+        dispatch(resetPg({}))
+        window.location.href='/pg/login'
+    }
+}

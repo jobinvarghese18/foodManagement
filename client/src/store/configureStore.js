@@ -5,13 +5,15 @@ import userReducer                                   from '../reducers/userReduc
 import pgsReducer                                    from '../reducers/PgsReducer'
 import residentMess                                  from '../reducers/residentMessReducer'
 import pgMessReducer                                 from '../reducers/pgMessReducer'
+import userRequestReducer                            from '../reducers/userRequestReducer'
 const configureStore = ()=>{
     const store = createStore(combineReducers({
        user:userReducer,
        pg:pgReducer,
        pgs:pgsReducer,
        residentMess:residentMess,
-       pgMess:pgMessReducer
+       pgMess:pgMessReducer,
+       userRequest:userRequestReducer
     }),applyMiddleware(thunk))
     return store
 }

@@ -64,4 +64,6 @@ usersController.account = (req,res)=>{
     res.json(req.user)
 }
 
+///----------- Approve user -------
+
 module.exports = usersController

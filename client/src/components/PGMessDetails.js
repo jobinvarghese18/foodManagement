@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import DateFnsUtils from '@date-io/date-fns'
 import datefns from "date-fns"
+import {connect} from 'react-redux'
 import {Button,TextField,Checkbox,FormControl,FormControlLabel
 } from '@material-ui/core'
 import CardActions from '@material-ui/core/CardActions';
@@ -52,7 +53,7 @@ export default function OutlinedCard() {
           Fill Up !
         </Typography>
         <div clssName ='row'>
-            <div className='col-md-4 offset-4'>
+            <div className='col-md-4 ml-2'>
                     <form className={classes.root}>
                             <TextField id="standard-basic" label="Dish Name" />
                             <br/>

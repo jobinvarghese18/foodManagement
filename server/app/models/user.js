@@ -39,6 +39,9 @@ const userSchema = new Schema({
         minlength:6,
         maxlength:64,
         required:true
+    },
+    pgId:{
+        type:String
     }
 })
 

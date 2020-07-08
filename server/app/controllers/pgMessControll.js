@@ -4,6 +4,8 @@ const pgMessControll = {}
 //-----------Create---------
 pgMessControll.create = (req,res)=>{
     const body = req.body
+    body.pg = req.pg._id
+    console.log(body)
     const pgMess = new PgMess(body)
     pgMess.save()
     .then((pg)=>{

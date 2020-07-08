@@ -3,11 +3,14 @@ import {useFormik}                from 'formik'
 import {connect}                  from 'react-redux'
 import Paper                      from '@material-ui/core/Paper';
 import { makeStyles }             from '@material-ui/core/styles';
+import Countdown from 'react-countdown'
 import {TextField,Button,Checkbox,
        FormControlLabel,
        FormControl,InputLabel,Select,
        MenuItem,Card,CardContent,
-       Typography}                from '@material-ui/core'
+       Typography,Table,TableBody,
+      TableContainer,TableHead,TableRow,
+      TableCell}                from '@material-ui/core'
 import Grid                       from '@material-ui/core/Grid';
 import {startPostMessDetails,
        startGetPGMessDetails}     from '../actions/userAction'
@@ -35,10 +38,17 @@ const useStyles = makeStyles((theme) => ({
   const style = {
     minWidth: 283
  }
-
+//  const rows = [
+//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//   createData('Eclair', 262, 16.0, 24, 6.0),
+//   createData('Cupcake', 305, 3.7, 67, 4.3),
+//   createData('Gingerbread', 356, 16.0, 49, 3.9),
+// ];
 function UserMessDetails (props){
     const classes = useStyles();
     const [count , setCount] = useState('0')
+    const [date ,setDate] = useState(moment().format('MMMM Do YYYY, h:mm:ss a'))
     useEffect(()=>{
       props.dispatch(startGetPGMessDetails())
       setCount(100)
@@ -54,7 +64,11 @@ function UserMessDetails (props){
                   props.dispatch(startPostMessDetails(values))
          }
     })
-    
+   const update =()=>{
+     setDate(moment().subtract(1, 'hours').format('MMMM Do YYYY, h:mm:ss a'))
+   }
+   setInterval(update,1000)
+   const Completionist = () => <span>You are good to go!</span>;
     return(
         
         <div>
@@ -62,15 +76,55 @@ function UserMessDetails (props){
       <CardContent>
 
             <div className='row'>
-                <div className='col-md-3 offset-3'>
+                <div className='col-md-6 ml-3'>
                   <Typography variant='h6'>
                    Mess
                   </Typography>
                   <Typography variant='subtitle1' color='secondary'>
-                    {moment().format('MMMM Do YYYY, h:mm:ss a')}
+                    {date}
                   </Typography>
+                  
+                  <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">Dish</TableCell>
+            <TableCell align="left">Timings</TableCell>
+            <TableCell align="right">VEG/Non-VEG</TableCell>
+            <TableCell align="right">Served Date</TableCell>
+          </TableRow>
+        </TableHead>
+                  {/* {
+                    // console.log(props.pgMess)
+                     props.pgMess.map((ele)=>{
+                       return(
+                         <div> 
+                            <Typography variant='body1' color='primary'>
+                                    {ele.dishName}
+                  </Typography>
+                  <Typography variant='body1' color='primary'>
+                                    {ele.timeOfServing}
+                  </Typography>
+                 
+                         </div>
+                       )
+                     })
+                  } */}
+                   <TableBody>
+          {props.pgMess.map((row) => (
+            <TableRow key={row.name}>
+              
+              <TableCell align="right">{row.dishName}</TableCell>
+              <TableCell align="right">{row.timeOfServing}</TableCell>
+              <TableCell align="right">{row.vegNonVeg==='veg'?'VEG':'Non-VEG'}</TableCell>
+              <TableCell align="right">{row.servedDate}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+                </Table>
+              </TableContainer>
                 </div>
-                <div className='col-md-4 offset-8'> 
+                <div className='col-md-4 mt-4 '> 
                 
                 <h3>Be there ?</h3>
                 <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
@@ -120,7 +174,7 @@ function UserMessDetails (props){
 }
 const mapStateToProps = (state)=>{
     return{
-        residentMess:state.residentMess
+        pgMess:state.pgMess
     }
 }
 export default connect(mapStateToProps) (UserMessDetails)

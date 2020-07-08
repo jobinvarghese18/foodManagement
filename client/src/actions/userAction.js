@@ -106,3 +106,21 @@ export const startGetPGMessDetails = ()=>{
         })
     }
 }
+
+//-------------- Send Request ----
+export const startPostRequest = (formData)=>{
+    return(dispatch)=>{
+        axios.post('/user/approve',formData,{
+            headers:{
+                "Authorization":localStorage.getItem('auth')
+            }
+        })
+        .then((response)=>{
+            console.log(response.data)
+            
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+}

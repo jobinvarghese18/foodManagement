@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import './App.css';
 import { BrowserRouter,Route,Link } from 'react-router-dom'
 import {startLogout} from './actions/userAction'
+import {startLogoutPG} from './actions/pgActions'
 import { Navbar,Button,Form,FormControl,NavItem, NavDropdown, MenuItem, Nav } from 'react-bootstrap';
 import Home from './components/home'
 import Login from './components/login'
@@ -16,11 +17,15 @@ import Login1 from './components/login1'
 import PgProfile from './components/PGProfile'
 import userMessDetails from './components/UserMessDetails'
 import PGMessDetails from './components/PGMessDetails'
+import UserFeedback from './components/UserFeedback'
 
 class  App extends React.Component {
   handleLogout =()=>{
       this.props.dispatch(startLogout())
   }
+  pGhandleLogout =()=>{
+    this.props.dispatch(startLogoutPG())
+}
  render(){
    console.log('user',this.props.user)
    console.log('pg',this.props.pg)
@@ -40,7 +45,7 @@ class  App extends React.Component {
          <Link className='nav-link mr-4' to='/user/pgcards'>PGs</Link>
          <Link className='nav-link mr-4' to='/user/messdetails'>Mess</Link>
          <Link className='nav-link mr-4' to=''>Notification</Link>
-         <Link className='nav-link mr-4' to=''>Feedback</Link>
+         <Link className='nav-link mr-4' to='/user/feedback'>Feedback</Link>
          </Nav>
          <Navbar.Collapse id="responsive-navbar-nav">
            <Nav className="mr-auto">
@@ -88,7 +93,7 @@ class  App extends React.Component {
            </Nav>
            <Nav>
              {/* <Link className='nav-link' to='/user/register'>Sign Up</Link> */}
-             <Link className="nav-link" onClick={this.handleLogout} >Log out<span className="sr-only">(current)</span></Link>
+             <Link className="nav-link" onClick={this.pGhandleLogout} >Log out<span className="sr-only">(current)</span></Link>
            </Nav>
          </Navbar.Collapse>
        </Navbar>
@@ -103,6 +108,7 @@ class  App extends React.Component {
             <Route path='/user/pgcards' component = {PgCards}/>
             <Route path='/user/login1' component = {Login1} />
             <Route path='/user/messdetails' component={userMessDetails} />
+            <Route path='/user/feedback' component={UserFeedback}/>
 
 
             <Route path='/pg/register' component={PgRegister} />

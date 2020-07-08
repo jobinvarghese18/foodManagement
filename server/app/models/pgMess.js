@@ -22,6 +22,11 @@ const messSchema = new Schema({
     servedDate:{
         type:String,
         required:true
+    },
+    pg:{
+        type:Schema.Types.ObjectId,
+        ref:'Pg',
+        required:true
     }
 })
 
