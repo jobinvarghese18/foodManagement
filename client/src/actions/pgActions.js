@@ -86,7 +86,7 @@ export const startGetPgs = ()=>{
     }
 }
 
-//--------------Get Resuests -----
+//--------------Get Requests -----
 export const postRequest  = (data)=>{
     return{type:'POST_USER_REQ',payload:data}
 }
@@ -106,6 +106,8 @@ export const startGetRequests = ()=>{
         })
     }
 }
+
+
 //---------------log out---
 export const resetPg = (data)=>{
     return {type:'RESET_PG',payload:data}

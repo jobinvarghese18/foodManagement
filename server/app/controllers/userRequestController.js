@@ -28,11 +28,30 @@ userRequestController.list  = (req,res)=>{
     })
 }
 
-// userRequestController.update = (req,res)=>{
-//     const id = req.params.id
-//     const body = req.body
-//     UserRequest.findOneAndUpdate({_id:id,user})
+userRequestController.update = (req,res)=>{
+    const id = req.params.id
+    const body = req.body
+    body.pgId =  req.pg._id
+    console.log(body)
+    UserRequest.findOneAndUpdate({userId:id},body,{new:true})
+    .then((userRequest)=>{
+        res.json(userRequest)
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
 
-// }
+}
+
+userRequestController.destroy = (req,res)=>{
+    const id = req.params.id
+    UserRequest.findOneAndRemove({userId:id})
+    .then((userRequest)=>{
+        res.json(userRequest)
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+}
 
 module.exports = userRequestController

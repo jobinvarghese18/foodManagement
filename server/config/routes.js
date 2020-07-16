@@ -11,6 +11,7 @@ const userRequestController               = require('../app/controllers/userRequ
 
 router.post('/user/register',usersController.register)
 router.post('/user/login',usersController.login)
+router.get('/user/listall',authenticateUser,usersController.list)
 router.get('/user/account',authenticateUser,usersController.account)
 router.post('/user/residentMess',authenticateUser,residentMessControll.create)
 router.get('/user/residentMess',authenticateUser,residentMessControll.displayAll)
@@ -29,5 +30,7 @@ router.get('/pg/messdetails',authenticatePg,pgMessControll.list)
 //-----------User Request ------
 router.post('/user/approve',authenticateUser,userRequestController.request)
 router.get('/user/approve',authenticatePg,userRequestController.list)
-
+router.put('/user/approve/:id',authenticatePg,userRequestController.update)
+router.delete('/user/approve/:id',authenticatePg,userRequestController.destroy)
+router.get('/user/pgmess',authenticateUser,pgMessControll.display)
 module.exports = router

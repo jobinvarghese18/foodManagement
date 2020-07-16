@@ -10,6 +10,7 @@ import {Paper,Grid,Table,TableBody,
 import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux'
 import {startGetRequests} from '../actions/pgActions'
+import {startApproveUser,startDeleteUserReq} from '../actions/messActions'
 
 const useStyles = makeStyles({
   root: {
@@ -39,12 +40,27 @@ const style = {
  function PgProfile(props) {
      const [count ,setCount] = useState(0)
      useEffect (()=>{
-      props.dispatch(startGetRequests())
-      setCount(100)
+        props.dispatch(startGetRequests())
+        setCount(100)
      },[])
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-
+    const classes = useStyles();
+    const bull = <span className={classes.bullet}>•</span>;
+    function handleApprove(userid){
+        const formData = {
+         approved:true
+        }
+        props.dispatch(startApproveUser(userid,formData))
+    }
+  
+    function handleReject(userid){
+        const formData = {
+        approved:false
+      }
+        props.dispatch(startApproveUser(userid,formData))
+    }
+    function handleRemove(userid){
+        props.dispatch(startDeleteUserReq(userid))
+    }
   return (
     <Card className={classes.root}  className='mt-4'style={style}  variant="outlined">
       <CardContent>
@@ -95,12 +111,21 @@ const style = {
             <TableRow key={row.userId}>
              
               <TableCell align="left">{row.username}</TableCell>
-              <TableCell align="left"> <Button  variant="contained" color="primary">
-                approve</Button></TableCell>
-                <TableCell align="left"> <Button variant="contained" color="secondary">
-                 Reject</Button></TableCell>
+              <TableCell align="left"> {!row.approved?<Button  variant="contained"
+              onClick={()=>{handleApprove(row.userId)}} color="primary">
+                approve</Button>: <Button variant="contained" disabled>
+  approve
+</Button>} </TableCell>
+                <TableCell align="left"> {!row.approved?<Button variant="contained" disabled>
+                  Reject
+                </Button>:<Button variant="contained" onClick={ ()=>{handleReject(row.userId)}} color="secondary">
+                 Reject</Button>} </TableCell>
+                 <TableCell align="left"><Button  variant="contained"
+                 onClick={()=>{handleRemove(row.userId)}} color="primary">
+                Remove</Button></TableCell>
             </TableRow>
           ))}
+          
         </TableBody>
       </Table>
     </TableContainer>

@@ -24,7 +24,15 @@ usersController.register = (req,res)=>{
       console.log(err)
   })
 }
-
+usersController.list = (req,res)=>{
+    User.find()
+    .then((users)=>{
+        res.json(users)
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+}
 usersController.login = (req,res)=>{
     const body = req.body
     User.findOne({email:body.email})
